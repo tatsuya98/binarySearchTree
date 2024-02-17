@@ -17,23 +17,15 @@ class Tree
     node
   end
 
-  def insert(value)
-    node = @root
-    while !node.left.nil? || !node.right.nil?
-      if value == node.data
-        puts "tree already contains a node with the value #{value}"
-        break
-      elsif value > node.data
-        node = node.right
-      else
-        node = node.left
-      end
-    end
-    return nil if value == node.data
+  def insert(value, node_direction)
+    node = node_direction
+    return Node.new(value) if node.nil?
 
-    node.left = Node.new(value) if node.data > value
+    node.left = insert(value, node.left) if value < node.data
 
-    node.right = Node.new(value)
+    node.right = insert(value, node.right) if value > node.data
+
+    node
   end
 end
 
@@ -46,7 +38,4 @@ class Node
     @right = nil
   end
 end
-test = Tree.new
-arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324].uniq.sort
-test.root = test.build_tree(arr, 0, arr.length - 1)
-test.insert(324)
+
