@@ -40,10 +40,10 @@ class Tree
     end
     if root.left.nil?
       temp = root.right
-      return temp
+      temp
     elsif root.right.nil?
       temp = root.left
-      return temp
+      temp
     elsif !root.right.nil? && !root.left.nil?
       delete_root(root)
     end
@@ -60,6 +60,16 @@ class Tree
     node.right = prev_node.right
     node
   end
+
+  def find(root = @root, value)
+    return root if root.data == value
+
+    if value < root.data
+      find(root.left , value)
+    elsif value > root.data
+      find(root.right, value)
+    end
+  end
 end
 
 class Node
@@ -71,3 +81,7 @@ class Node
     @right = nil
   end
 end
+arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324].uniq.sort
+test = Tree.new
+test.root = test.build_tree(arr, 0, arr.length - 1)
+p test.find(3)
