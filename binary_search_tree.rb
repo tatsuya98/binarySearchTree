@@ -60,7 +60,6 @@ class Tree
     node.right = prev_node.right
     node
   end
-
 end
 
 class Node
